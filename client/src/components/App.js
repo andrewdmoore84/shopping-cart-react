@@ -1,10 +1,26 @@
-import React from "react";
+import React from 'react';
+
+import { useState, useEffect } from 'react';
+
+import Header from './Header';
+import Products from './Products';
+import AddProductForm from './AddProductForm';
+
+import productData from '../lib/data';
 
 const App = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    setProducts(productData);
+  }, []);
+
   return (
-    <div id="app">
-      <h1>Welcome</h1>
-    </div>
+    <>
+      <Header />
+      <Products products={products} />
+      <AddProductForm />
+    </>
   );
 };
 
