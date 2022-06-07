@@ -1,8 +1,8 @@
 const Product = ({ quantity, title, price }) => (
   <>
-    <p>{title}</p>
-    <p>{price}</p>
-    <p>{quantity}</p>
+    <h3>{title}</h3>
+    <p class="price">{price}</p>
+    <p class="quantity">{quantity} left in stock</p>
   </>
 )
 

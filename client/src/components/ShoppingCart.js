@@ -7,13 +7,13 @@ Total: $${sumPrices}
 
 */
 const ShoppingCart = ({ cartItems }) => (
-  <>
-    <h3>Your cart</h3>
+  <div class="cart">
+    <h2>Your cart</h2>
 
     {
       cartItems.length === 0 ?
         <p>Your cart is empty</p> :
-
+        // <CartTable />
         cartItems.map(item => {
 
         })
@@ -29,7 +29,7 @@ const ShoppingCart = ({ cartItems }) => (
     {
 
     }
-  </>
+  </div>
 )
 
 export default ShoppingCart

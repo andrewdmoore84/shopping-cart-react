@@ -3,9 +3,9 @@ import ShoppingCart from "./ShoppingCart"
 
 const Header = ({ cartItems }) => (
   <>
-    <h1>
-      SHOP
-    </h1>
+    <header>
+      <h1>The Shop!</h1>
+    </header>
 
     {/* pass in state */}
     <ShoppingCart cartItems={cartItems}/>

@@ -12,7 +12,10 @@ const App = () => {
   return (
     <div id="app">
       <Header cartItems={cart}/>
-      <Products items={data} />
+      <main>
+        <Products items={data} />
+      </main>
+      
     </div>
   );
 };

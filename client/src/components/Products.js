@@ -2,8 +2,8 @@ import EditableProduct from './EditableProduct'
 import React from 'react'
 
 const Products = ({ items }) => (
-  <>
-    <h1>Products</h1>
+  <div class="product-listing">
+    <h2>Products</h2>
     <ul>
       {items.map(item =>
       <li key={item.id}>
@@ -11,7 +11,7 @@ const Products = ({ items }) => (
       </li>
     )}
     </ul>
-  </>
+  </div>
 )
 
 export default Products
