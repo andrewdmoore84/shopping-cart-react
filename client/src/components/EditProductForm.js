@@ -1,7 +1,7 @@
 import Button from "./Button"
 import {useState} from 'react'
 
-const EditProductForm = ({ title, price, quantity}) => {
+const EditProductForm = ({ title, price, quantity, handleHideForm, handleUpdateProduct }) => {
   const [productTitle, setProductTitle] = useState('')
   const [productPrice, setProductPrice] = useState('')
   const [productQuantity, setProductQuantity] = useState('')
@@ -9,7 +9,13 @@ const EditProductForm = ({ title, price, quantity}) => {
   const handleOnChange = (callback) => {
     return (e) => callback(e.target.value)
   }
-  
+
+  const handleUpdateClick = async () => {
+    // TBD: implement this function: need to invoke fn passed from App (handleUpdateProduct) and pass it current state of title/price/quantity
+
+    // after returning, invoke handleHideForm
+  };
+
   return (
     <div class="edit-form">
       <h3>Edit Product</h3>
@@ -28,7 +34,7 @@ const EditProductForm = ({ title, price, quantity}) => {
       </div>
       <div class="actions form-actions">
         <Button name="Update" handleClick={()=>{}} className=""/>
-        <Button name="Cancel" handleClick={()=>{}} className=""/>
+        <Button name="Cancel" handleClick={handleHideForm} className=""/>
       </div>
       </form>
     </div>
