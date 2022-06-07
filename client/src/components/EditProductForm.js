@@ -1,4 +1,10 @@
-const EditProductForm = () => {
+import { useState } from 'react'
+
+const EditProductForm = ({ onEditFormClick }) => {
+  const handleEditFormClick = () => {
+    onEditFormClick()
+  }
+
   return (
     <div class="edit-form">
       <h3>Edit Product</h3>
@@ -20,7 +26,7 @@ const EditProductForm = () => {
 
         <div class="actions form-actions">
           <a class="button">Update</a>
-          <a class="button">Cancel</a>
+          <a onClick={handleEditFormClick} class="button">Cancel</a>
         </div>
       </form>
     </div>

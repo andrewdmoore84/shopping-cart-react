@@ -1,20 +1,17 @@
 import { useState } from 'react';
 
 const AddProductForm = () => {
-  const [visibility, setVisibility] = useState('');
+  const [showAddProduct, setShowAddProduct] = useState(false);
+  const addFormClass = showAddProduct ? 'add-form visible' : 'add-form'
 
-  const handleAddButton = () => {
-    setVisibility('visible');
-  }
-
-  const handleCancelButton = () => {
-    setVisibility('');
+  const toggleAddFormButton = () => {
+    setShowAddProduct(!showAddProduct);
   }
 
   return (
-    <div class={`add-form ${visibility}`}>
+    <div class={addFormClass}>
       <p>
-        <a onClick={handleAddButton} class="button add-product-button">
+        <a onClick={toggleAddFormButton} class="button add-product-button">
           Add A Product
         </a>
       </p>
@@ -37,7 +34,7 @@ const AddProductForm = () => {
 
         <div class="actions form-actions">
           <a class="button">Add</a>
-          <a onClick={handleCancelButton} class="button">Cancel</a>
+          <a onClick={toggleAddFormButton} class="button">Cancel</a>
         </div>
       </form>
     </div>

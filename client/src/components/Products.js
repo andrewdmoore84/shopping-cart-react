@@ -1,10 +1,10 @@
-import ProductDetail from './ProductDetail';
+import Product from "./Product";
 
 const Products = ({ products }) => (
   <div class="product-listing">
     <h2>Products</h2>
     {products.map(product => (
-      <ProductDetail key={product.id} product={product} />
+      <Product key={product.id} product={product} />
     ))}
   </div>
 );

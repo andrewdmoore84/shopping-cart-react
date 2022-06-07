@@ -6,21 +6,27 @@ import Header from './Header';
 import Products from './Products';
 import AddProductForm from './AddProductForm';
 
-import productData from '../lib/data';
+import axios from 'axios';
 
 const App = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    setProducts(productData);
+    const getProducts = async () => {
+      const { data } = await axios.get('/api/products')
+      setProducts(data);
+    }
+    getProducts()
   }, []);
 
   return (
-    <>
+    <div id="app">
       <Header />
-      <Products products={products} />
-      <AddProductForm />
-    </>
+      <main>
+        <Products products={products} />
+        <AddProductForm />
+      </main>
+    </div>
   );
 };
 
