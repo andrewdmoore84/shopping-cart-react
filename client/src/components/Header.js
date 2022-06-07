@@ -1,9 +1,9 @@
-import Cart from './Cart';
+import Cart from './Cart'
 
-const Header = () => (
+const Header = ({ cartItems }) => (
   <header>
       <h1>The Shop!</h1>
-      <Cart />
+      <Cart cartItems={cartItems} />
     </header>
 );
 

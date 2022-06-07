@@ -1,7 +1,13 @@
-const ProductDetail = ({ product, onEditFormClick }) => {
+const ProductDetail = ({ product, onEditFormClick, onAddToCart }) => {
 
-  const handleEditFormClick = () => {
+  const handleEditFormClick = (event) => {
+    event.preventDefault()
     onEditFormClick()
+  }
+
+  const handleAddToCart = (event) => {
+    event.preventDefault()
+    onAddToCart({ productId: product._id, ...product })
   }
 
   return (
@@ -11,10 +17,10 @@ const ProductDetail = ({ product, onEditFormClick }) => {
         <p class="price">{product.price}</p>
         <p class="quantity">{product.quantity} left in stock</p>
         <div class="actions product-actions">
-          <a class="button add-to-cart">Add to Cart</a>
-          <a onClick={handleEditFormClick} class="button edit">Edit</a>
+          <a href='/' onClick={handleAddToCart} class="button add-to-cart">Add to Cart</a>
+          <a href='/' onClick={handleEditFormClick} class="button edit">Edit</a>
         </div>
-        <a class="delete-button"><span>X</span></a>
+        <a href='/' class="delete-button"><span>X</span></a>
       </div>
     </div>
   )

@@ -1,28 +1,33 @@
-const Cart = () => (
-  <div class="cart">
-    <h2>Your Cart</h2>
-    <table class="cart-items">
-      <tr>
-        <th>Item</th>
-        <th>Quantity</th>
-        <th>Price</th>
-      </tr>
-      <tr>
-        <td>Amazon Kindle E-reader</td>
-        <td>2</td>
-        <td>$79.99</td>
-      </tr>
-      <tr>
-        <td>Apple 10.5-Inch iPad Pro</td>
-        <td>1</td>
-        <td>$649.99</td>
-      </tr>
-      <tr>
-        <td colspan="3" class="total">Total: $729.98</td>
-      </tr>
-    </table>
-    <a class="button checkout">Checkout</a>
-  </div>
-);
+const Cart = ({ cartItems }) => {
+  const totalPrice = () => (
+    cartItems.reduce((accum, cartItem) => {
+      return accum + cartItem.price
+    }, 0)
+  )
+
+  return (
+    <div class="cart">
+      <h2>Your Cart</h2>
+      <table class="cart-items">
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+        {cartItems.map(cartItem => (
+          <tr key={cartItem._id}>
+            <td>{cartItem.title}</td>
+            <td>{cartItem.quantity}</td>
+            <td>{cartItem.price}</td>
+          </tr>
+        ))}
+        <tr>
+          <td colspan="3" class="total">Total: {totalPrice()}</td>
+        </tr>
+      </table>
+      <a href='/' class="button checkout">Checkout</a>
+    </div>
+  )
+}
 
 export default Cart;

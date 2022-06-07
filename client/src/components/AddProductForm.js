@@ -1,17 +1,32 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
-const AddProductForm = () => {
-  const [showAddProduct, setShowAddProduct] = useState(false);
+const AddProductForm = ({ onAddProduct }) => {
+  const [showAddProduct, setShowAddProduct] = useState(false)
   const addFormClass = showAddProduct ? 'add-form visible' : 'add-form'
+  const [title, setTitle] = useState('')
+  const [price, setPrice] = useState(0)
+  const [quantity, setQuantity] = useState(0)
 
-  const toggleAddFormButton = () => {
-    setShowAddProduct(!showAddProduct);
+  const toggleAddFormButton = (event) => {
+    event.preventDefault()
+    setShowAddProduct(!showAddProduct)
+  }
+
+  const resetProductForm = () => {
+    setTitle('')
+    setPrice(0)
+    setQuantity(0)
+  }
+
+  const handleAddProduct = (event) => {
+    event.preventDefault()
+    onAddProduct({ title, price, quantity }, resetProductForm)
   }
 
   return (
     <div class={addFormClass}>
       <p>
-        <a onClick={toggleAddFormButton} class="button add-product-button">
+        <a href='/' onClick={toggleAddFormButton} class="button add-product-button">
           Add A Product
         </a>
       </p>
@@ -19,26 +34,41 @@ const AddProductForm = () => {
       <form>
         <div class="input-group">
           <label for="product-name">Product Name</label>
-          <input type="text" id="product-name" value="" />
+          <input
+            onChange={(event) => setTitle(event.target.value)}
+            type="text"
+            id="product-name"
+            value={title}
+          />
         </div>
 
         <div class="input-group">
           <label for="product-price">Price</label>
-          <input type="text" id="product-price" value="" />
+          <input
+            onChange={(event) => setPrice(event.target.value)}
+            type="text"
+            id="product-price"
+            value={price}
+          />
         </div>
 
         <div class="input-group">
           <label for="product-quantity">Quantity</label>
-          <input type="text" id="product-quantity" value="" />
+          <input
+            onChange={(event) => setQuantity(event.target.value)}
+            type="text"
+            id="product-quantity"
+            value={quantity}
+          />
         </div>
 
         <div class="actions form-actions">
-          <a class="button">Add</a>
-          <a onClick={toggleAddFormButton} class="button">Cancel</a>
+          <a href='/api/products' onClick={handleAddProduct} class="button">Add</a>
+          <a href='/' onClick={toggleAddFormButton} class="button">Cancel</a>
         </div>
       </form>
     </div>
-  );
+  )
 }
 
-export default AddProductForm;
+export default AddProductForm

@@ -1,8 +1,8 @@
-import EditProductForm from './EditProductForm';
-import ProductDetail from './ProductDetail';
-import { useState } from 'react';
+import EditProductForm from './EditProductForm'
+import ProductDetail from './ProductDetail'
+import { useState } from 'react'
 
-const Product = ({ product }) => {
+const Product = ({ product, onAddToCart }) => {
   const [ showEditForm, setShowEditForm ] = useState(false)
 
   const toggleEditFormClick = () => {
@@ -11,7 +11,7 @@ const Product = ({ product }) => {
 
   return (
     <>
-      <ProductDetail product={product} onEditFormClick={toggleEditFormClick} />
+      <ProductDetail product={product} onEditFormClick={toggleEditFormClick} onAddToCart={onAddToCart} />
       {showEditForm && <EditProductForm onEditFormClick={toggleEditFormClick} />}
     </>
   )

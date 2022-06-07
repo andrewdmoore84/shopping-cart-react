@@ -1,7 +1,6 @@
-import { useState } from 'react'
-
 const EditProductForm = ({ onEditFormClick }) => {
-  const handleEditFormClick = () => {
+  const handleEditFormClick = (event) => {
+    event.preventDefault()
     onEditFormClick()
   }
 
@@ -25,12 +24,12 @@ const EditProductForm = ({ onEditFormClick }) => {
         </div>
 
         <div class="actions form-actions">
-          <a class="button">Update</a>
-          <a onClick={handleEditFormClick} class="button">Cancel</a>
+          <a href='/' class="button">Update</a>
+          <a href='/' onClick={handleEditFormClick} class="button">Cancel</a>
         </div>
       </form>
     </div>
-  );
+  )
 }
 
 export default EditProductForm;
