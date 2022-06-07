@@ -1,14 +1,20 @@
-import React from "react";
+import React from "react"
+import { useState } from "react"
 import data from "../lib/data"
-import Products from "./Products";
+
+import Header from "./Header"
+import Products from "./Products"
 
 const App = () => {
+
+  const [ cart, updateCart ] = useState([])
+
   return (
     <div id="app">
-      {/* <Header /> */} 
+      <Header cartItems={cart}/>
       <Products items={data} />
     </div>
   );
 };
 
-export default App;
+export default App
