@@ -1,4 +1,4 @@
-const ProductDetail = ({ product, onEditFormClick, onAddToCart }) => {
+const ProductDetail = ({ product, onEditFormClick, onAddToCart, onDeleteProduct }) => {
 
   const handleEditFormClick = (event) => {
     event.preventDefault()
@@ -8,6 +8,11 @@ const ProductDetail = ({ product, onEditFormClick, onAddToCart }) => {
   const handleAddToCart = (event) => {
     event.preventDefault()
     onAddToCart({ productId: product._id, ...product })
+  }
+
+  const handleDeleteProduct = (event) => {
+    event.preventDefault()
+    onDeleteProduct(product._id)
   }
 
   return (
@@ -20,7 +25,7 @@ const ProductDetail = ({ product, onEditFormClick, onAddToCart }) => {
           <a href='/' onClick={handleAddToCart} class="button add-to-cart">Add to Cart</a>
           <a href='/' onClick={handleEditFormClick} class="button edit">Edit</a>
         </div>
-        <a href='/' class="delete-button"><span>X</span></a>
+        <a href='/' onClick={handleDeleteProduct} class="delete-button"><span>X</span></a>
       </div>
     </div>
   )

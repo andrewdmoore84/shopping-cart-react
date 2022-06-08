@@ -1,7 +1,24 @@
-const EditProductForm = ({ onEditFormClick }) => {
-  const handleEditFormClick = (event) => {
+import { useState } from 'react';
+
+const EditProductForm = ({ onEditFormClick, onEditProduct, product }) => {
+  const [title, setTitle] = useState(product.title)
+  const [price, setPrice] = useState(product.price)
+  const [quantity, setQuantity] = useState(product.quantity)
+
+  const resetEditForm = () => {
+    setTitle(product.title)
+    setPrice(product.price)
+    setQuantity(product.quantity)
+  }
+
+  const handleCancelEditForm = (event) => {
     event.preventDefault()
-    onEditFormClick()
+    onEditFormClick(resetEditForm)
+  }
+
+  const handleSubmitForm = (event) => {
+    event.preventDefault()
+    onEditProduct({ _id: product._id, title, price, quantity })
   }
 
   return (
@@ -10,22 +27,30 @@ const EditProductForm = ({ onEditFormClick }) => {
       <form>
         <div class="input-group">
           <label for="product-name">Product Name</label>
-          <input type="text" id="product-name" value="Apple 10.5-Inch iPad Pro" />
+          <input
+            onChange={(event) => setTitle(event.target.value)}
+            type="text" id="product-name" value={title}
+          />
         </div>
 
         <div class="input-group">
           <label for="product-price">Price</label>
-          <input type="text" id="product-price" value="649.99" />
+          <input
+            onChange={(event) => setPrice(event.target.value)}
+            type="text" id="product-price" value={price}
+          />
         </div>
 
         <div class="input-group">
           <label for="product-quantity">Quantity</label>
-          <input type="text" id="product-quantity" value="2" />
+          <input onChange={(event) => setQuantity(event.target.value)}
+            type="text" id="product-quantity" value={quantity}
+          />
         </div>
 
         <div class="actions form-actions">
-          <a href='/' class="button">Update</a>
-          <a href='/' onClick={handleEditFormClick} class="button">Cancel</a>
+          <a href='/' onClick={handleSubmitForm} class="button">Update</a>
+          <a href='/' onClick={handleCancelEditForm} class="button">Cancel</a>
         </div>
       </form>
     </div>

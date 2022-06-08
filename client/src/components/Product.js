@@ -2,17 +2,31 @@ import EditProductForm from './EditProductForm'
 import ProductDetail from './ProductDetail'
 import { useState } from 'react'
 
-const Product = ({ product, onAddToCart }) => {
+const Product = ({ product, onAddToCart, onEditProduct, onDeleteProduct }) => {
   const [ showEditForm, setShowEditForm ] = useState(false)
 
-  const toggleEditFormClick = () => {
+  const toggleEditFormClick = (callback) => {
     setShowEditForm(!showEditForm)
+
+    if (callback) {
+      callback()
+    }
   }
 
   return (
     <>
-      <ProductDetail product={product} onEditFormClick={toggleEditFormClick} onAddToCart={onAddToCart} />
-      {showEditForm && <EditProductForm onEditFormClick={toggleEditFormClick} />}
+      <ProductDetail
+        product={product}
+        onEditFormClick={toggleEditFormClick}
+        onAddToCart={onAddToCart}
+        onDeleteProduct={onDeleteProduct}
+        />
+      {showEditForm &&
+      <EditProductForm
+        onEditFormClick={toggleEditFormClick}
+        onEditProduct={onEditProduct}
+        product={product}
+      />}
     </>
   )
 }

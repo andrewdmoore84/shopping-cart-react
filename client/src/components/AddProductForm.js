@@ -33,7 +33,7 @@ const AddProductForm = ({ onAddProduct }) => {
       <h3>Add Product</h3>
       <form>
         <div class="input-group">
-          <label for="product-name">Product Name</label>
+          <label htmlFor="product-name">Product Name</label>
           <input
             onChange={(event) => setTitle(event.target.value)}
             type="text"
@@ -43,7 +43,7 @@ const AddProductForm = ({ onAddProduct }) => {
         </div>
 
         <div class="input-group">
-          <label for="product-price">Price</label>
+          <label htmlFor="product-price">Price</label>
           <input
             onChange={(event) => setPrice(event.target.value)}
             type="text"
@@ -53,7 +53,7 @@ const AddProductForm = ({ onAddProduct }) => {
         </div>
 
         <div class="input-group">
-          <label for="product-quantity">Quantity</label>
+          <label htmlFor="product-quantity">Quantity</label>
           <input
             onChange={(event) => setQuantity(event.target.value)}
             type="text"
