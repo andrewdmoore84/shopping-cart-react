@@ -1,7 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
+import Button from './Button'
 
-const AddProductForm = () => {
+const AddProductForm = ({ handleAddProduct, toggleIsFormVisible }) => {
   const [productTitle, setProductTitle] = useState('')
   const [productPrice, setProductPrice] = useState('')
   const [productQuantity, setProductQuantity] = useState('')
@@ -10,10 +11,10 @@ const AddProductForm = () => {
     return (e) => callback(e.target.value)
   }
 
-  // const handleUpdateClick = async () => {
-  //   await handleUpdateProduct({ title: productTitle, price: productPrice, quantity: productQuantity }, id);
-  //   handleHideForm()
-  // };
+  const handleAddClick = async () => {
+    await handleAddProduct({ title: productTitle, price: productPrice, quantity: productQuantity });
+    toggleIsFormVisible();
+  };
 
   return (
     <form class="">
@@ -33,8 +34,10 @@ const AddProductForm = () => {
         </div>
 
         <div class="actions form-actions">
-          <a class="button">Add</a>
-          <a class="button">Cancel</a>
+          <Button className handleClick={handleAddClick} name="Add" />
+          {/* <a class="button">Add</a> */}
+          <Button className handleClick={toggleIsFormVisible} name="Cancel" />
+          {/* <a class="button">Cancel</a> */}
         </div>
       </form>
   )

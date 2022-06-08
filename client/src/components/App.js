@@ -10,6 +10,15 @@ const App = () => {
   const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
 
+  const addProduct = async (newProduct) => {
+    const response = await ProductService.create(newProduct)
+    console.log('response', response)
+
+    const newProducts = products.concat(response)
+    console.log('newProducts', newProducts)
+    setProducts(newProducts)
+  }
+
   const updateProduct = async (updatedProduct, id) => {
     const response = await ProductService.update(updatedProduct, id)
 
@@ -45,7 +54,7 @@ const App = () => {
 
       <main>
         <Products items={products} handleUpdateProduct={updateProduct} handleDeleteProduct={deleteProduct}/>
-        <AddProductSection />
+        <AddProductSection handleAddProduct={addProduct} />
       </main>
 
     </div>

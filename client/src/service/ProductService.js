@@ -6,6 +6,15 @@ const getAll = async () => {
   return response.data
 }
 
+const create = async (newProduct) => {
+  try {
+    const response = await axios.post(`${baseURL}`, newProduct)
+    return response.data
+  } catch (error) {
+    console.log('error', error)
+  }
+}
+
 const update = async (updatedProduct, id) => {
   try {
     const response = await axios.put(`${baseURL}/${id}`, updatedProduct)
@@ -24,4 +33,4 @@ const deleteProduct = async (id) => {
   }
 }
 
-export default { update, getAll, deleteProduct };
+export default { create, update, getAll, deleteProduct };
