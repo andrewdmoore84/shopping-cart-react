@@ -1,19 +1,18 @@
 import Button from "./Button"
 import {useState} from 'react'
 
-const EditProductForm = ({ title, price, quantity, handleHideForm, handleUpdateProduct }) => {
-  const [productTitle, setProductTitle] = useState('')
-  const [productPrice, setProductPrice] = useState('')
-  const [productQuantity, setProductQuantity] = useState('')
+const EditProductForm = ({ title, price, quantity, handleHideForm, handleUpdateProduct, id }) => {
+  const [productTitle, setProductTitle] = useState(title)
+  const [productPrice, setProductPrice] = useState(price)
+  const [productQuantity, setProductQuantity] = useState(quantity)
 
   const handleOnChange = (callback) => {
     return (e) => callback(e.target.value)
   }
 
   const handleUpdateClick = async () => {
-    // TBD: implement this function: need to invoke fn passed from App (handleUpdateProduct) and pass it current state of title/price/quantity
-
-    // after returning, invoke handleHideForm
+    await handleUpdateProduct({title: productTitle, price: productPrice, quantity: productQuantity}, id);
+    handleHideForm()
   };
 
   return (
@@ -33,7 +32,7 @@ const EditProductForm = ({ title, price, quantity, handleHideForm, handleUpdateP
         <input type="text" id="product-quantity" onChange={handleOnChange(setProductQuantity)} value={productQuantity} />
       </div>
       <div class="actions form-actions">
-        <Button name="Update" handleClick={()=>{}} className=""/>
+        <Button name="Update" handleClick={handleUpdateClick} className="" />
         <Button name="Cancel" handleClick={handleHideForm} className=""/>
       </div>
       </form>

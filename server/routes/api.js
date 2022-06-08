@@ -106,6 +106,7 @@ router.post("/products", (req, res, next) => {
 });
 
 router.put("/products/:id", (req, res) => {
+  console.log(req.params.id)
   const productId = req.params.id;
   const { title, price, quantity } = req.body;
   Product.findById(productId)
