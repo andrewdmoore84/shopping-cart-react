@@ -3,12 +3,12 @@ import { useEffect, useState } from "react"
 import ProductService from "../service/ProductService";
 import Header from "./Header"
 import Products from "./Products"
+import AddProductSection from "./AddProductSection"
 
 
 const App = () => {
   const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
-  console.log(products)
 
   const updateProduct = async (updatedProduct, id) => {
     const response = await ProductService.update(updatedProduct, id)
@@ -25,9 +25,8 @@ const App = () => {
 
   const deleteProduct = async (id) => {
     const response = await ProductService.deleteProduct(id)
-    console.log(response)
-    const updatedProducts = products.filter(product => product._id !== response._id)
-    console.log("updatedProducts", updatedProducts)
+    const updatedProducts = products.filter(product => product._id !== id)
+
     setProducts(updatedProducts)
   }
 
@@ -43,8 +42,10 @@ const App = () => {
   return (
     <div id="app">
       <Header cartItems={cart}/>
+
       <main>
         <Products items={products} handleUpdateProduct={updateProduct} handleDeleteProduct={deleteProduct}/>
+        <AddProductSection />
       </main>
 
     </div>
