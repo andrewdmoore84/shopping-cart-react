@@ -3,6 +3,13 @@ const products = (state = [], action) => {
     case "PRODUCTS_RECEIVED": {
       return action.payload;
     }
+    case "PRODUCT_ADDED": {
+      return state.concat(action.payload)
+    }
+    case "PRODUCT_DELETED": {
+      const updatedProducts = state.filter(product => product._id !== action.payload)
+      return updatedProducts
+    }
     case "PRODUCT_UPDATED": {
       const updatedProducts = state.map(product => {
       if (product._id === action.payload._id) {
@@ -15,10 +22,6 @@ const products = (state = [], action) => {
     }
     default: {
       return state;
-    }
-    case "PRODUCT_DELETED": {
-      const updatedProducts = state.filter(product => product._id !== action.payload)
-      return updatedProducts
     }
   }
 };

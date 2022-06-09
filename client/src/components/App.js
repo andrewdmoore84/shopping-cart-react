@@ -12,33 +12,6 @@ const App = () => {
   const dispatch = useDispatch()
   const [cart, setCart] = useState([]);
   const products = useSelector(state => state.products)
-  
-  // const addProduct = async (newProduct) => {
-  //   const response = await ProductService.create(newProduct)
-
-  //   const newProducts = products.concat(response)
-  //   setProducts(newProducts)
-  // }
-
-  // const updateProduct = async (updatedProduct, id) => {
-  //   const response = await ProductService.update(updatedProduct, id)
-
-  //   const updatedProducts = products.map(product => {
-  //     if (product._id === id) {
-  //       return response
-  //     } else {
-  //       return product
-  //     }
-  //   })
-  //   setProducts(updatedProducts)
-  // }
-
-  // const deleteProduct = async (id) => {
-  //   await ProductService.deleteProduct(id)
-  //   const updatedProducts = products.filter(product => product._id !== id)
-
-  //   setProducts(updatedProducts)
-  // }
 
   // const addToCart = async (id) => {
   //   const response = await CartService.add(id)
@@ -60,10 +33,10 @@ const App = () => {
   //           return item
   //         } else {
   //           return item
-  //         }  
+  //         }
   //       })
   //       setCart(newItems)
-        
+
   //     } else {
   //       setCart(cart.concat(response.item))
   //     }
@@ -101,7 +74,7 @@ const App = () => {
 
       <main>
         <Products items={products} />
-        {/* <AddProductSection handleAddProduct={addProduct} /> */}
+        <AddProductSection />
       </main>
 
     </div>

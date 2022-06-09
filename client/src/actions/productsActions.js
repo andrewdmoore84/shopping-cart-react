@@ -10,3 +10,7 @@ export const productUpdated = (updatedProduct) => {
 export const productDeleted = (id) => {
   return { type: "PRODUCT_DELETED", payload: id };
 }
+
+export const productAdded = (newProduct) => {
+  return { type: "PRODUCT_ADDED", payload: newProduct };
+}
