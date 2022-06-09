@@ -1,11 +1,15 @@
 import { useState } from 'react'
+import { productAdded } from '../actions/productActions'
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
 
-const AddProductForm = ({ onAddProduct }) => {
+const AddProductForm = () => {
   const [showAddProduct, setShowAddProduct] = useState(false)
   const addFormClass = showAddProduct ? 'add-form visible' : 'add-form'
   const [title, setTitle] = useState('')
   const [price, setPrice] = useState(0)
   const [quantity, setQuantity] = useState(0)
+  const dispatch = useDispatch()
 
   const toggleAddFormButton = (event) => {
     event.preventDefault()
@@ -18,21 +22,27 @@ const AddProductForm = ({ onAddProduct }) => {
     setQuantity(0)
   }
 
-  const handleAddProduct = (event) => {
+  const handleAddProduct = async (event) => {
     event.preventDefault()
-    onAddProduct({ title, price, quantity }, resetProductForm)
+    try {
+      const { data } = await axios.post('/api/products', { title, price, quantity })
+      dispatch(productAdded(data))
+      resetProductForm()
+    } catch(err) {
+      console.error(err)
+    }
   }
 
   return (
-    <div class={addFormClass}>
+    <div className={addFormClass}>
       <p>
-        <a href='/' onClick={toggleAddFormButton} class="button add-product-button">
+        <a href='/' onClick={toggleAddFormButton} className="button add-product-button">
           Add A Product
         </a>
       </p>
       <h3>Add Product</h3>
       <form>
-        <div class="input-group">
+        <div className="input-group">
           <label htmlFor="product-name">Product Name</label>
           <input
             onChange={(event) => setTitle(event.target.value)}
@@ -42,7 +52,7 @@ const AddProductForm = ({ onAddProduct }) => {
           />
         </div>
 
-        <div class="input-group">
+        <div className="input-group">
           <label htmlFor="product-price">Price</label>
           <input
             onChange={(event) => setPrice(event.target.value)}
@@ -52,7 +62,7 @@ const AddProductForm = ({ onAddProduct }) => {
           />
         </div>
 
-        <div class="input-group">
+        <div className="input-group">
           <label htmlFor="product-quantity">Quantity</label>
           <input
             onChange={(event) => setQuantity(event.target.value)}
@@ -62,9 +72,9 @@ const AddProductForm = ({ onAddProduct }) => {
           />
         </div>
 
-        <div class="actions form-actions">
-          <a href='/api/products' onClick={handleAddProduct} class="button">Add</a>
-          <a href='/' onClick={toggleAddFormButton} class="button">Cancel</a>
+        <div className="actions form-actions">
+          <a href='/api/products' onClick={handleAddProduct} className="button">Add</a>
+          <a href='/' onClick={toggleAddFormButton} className="button">Cancel</a>
         </div>
       </form>
     </div>

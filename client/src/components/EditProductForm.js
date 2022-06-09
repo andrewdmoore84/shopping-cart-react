@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useState } from 'react'
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { productEdited } from '../actions/productActions'
 
-const EditProductForm = ({ onEditFormClick, onEditProduct, product }) => {
+const EditProductForm = ({ onEditFormClick, product }) => {
   const [title, setTitle] = useState(product.title)
   const [price, setPrice] = useState(product.price)
   const [quantity, setQuantity] = useState(product.quantity)
+  const dispatch = useDispatch()
 
   const resetEditForm = () => {
     setTitle(product.title)
@@ -16,16 +20,22 @@ const EditProductForm = ({ onEditFormClick, onEditProduct, product }) => {
     onEditFormClick(resetEditForm)
   }
 
-  const handleSubmitForm = (event) => {
+  const handleEditProduct = async (event) => {
     event.preventDefault()
-    onEditProduct({ _id: product._id, title, price, quantity })
+    try {
+      const { data } = await axios.put(`/api/products/${product._id}`, { _id: product._id, title, price, quantity })
+
+      dispatch(productEdited(data))
+    } catch(err) {
+      console.error(err)
+    }
   }
 
   return (
-    <div class="edit-form">
+    <div className="edit-form">
       <h3>Edit Product</h3>
       <form>
-        <div class="input-group">
+        <div className="input-group">
           <label for="product-name">Product Name</label>
           <input
             onChange={(event) => setTitle(event.target.value)}
@@ -33,7 +43,7 @@ const EditProductForm = ({ onEditFormClick, onEditProduct, product }) => {
           />
         </div>
 
-        <div class="input-group">
+        <div className="input-group">
           <label for="product-price">Price</label>
           <input
             onChange={(event) => setPrice(event.target.value)}
@@ -41,16 +51,16 @@ const EditProductForm = ({ onEditFormClick, onEditProduct, product }) => {
           />
         </div>
 
-        <div class="input-group">
+        <div className="input-group">
           <label for="product-quantity">Quantity</label>
           <input onChange={(event) => setQuantity(event.target.value)}
             type="text" id="product-quantity" value={quantity}
           />
         </div>
 
-        <div class="actions form-actions">
-          <a href='/' onClick={handleSubmitForm} class="button">Update</a>
-          <a href='/' onClick={handleCancelEditForm} class="button">Cancel</a>
+        <div className="actions form-actions">
+          <a href='/' onClick={handleEditProduct} className="button">Update</a>
+          <a href='/' onClick={handleCancelEditForm} className="button">Cancel</a>
         </div>
       </form>
     </div>

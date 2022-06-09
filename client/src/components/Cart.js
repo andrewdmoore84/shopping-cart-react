@@ -1,13 +1,35 @@
-const Cart = ({ cartItems, onCheckout }) => {
+import axios from 'axios'
+import { useSelector, useDispatch } from 'react-redux'
+import { cartItemsReceived, cartCheckedOut } from '../actions/cartActions'
+import { useEffect } from 'react'
+
+const Cart = () => {
+  const dispatch = useDispatch()
+  const cartItems = useSelector(state => state.cartItems)
+
+  useEffect(() => {
+    const getCartItems = async () => {
+      const cartData = await axios.get('/api/cart')
+      dispatch(cartItemsReceived(cartData.data))
+    }
+    getCartItems()
+  }, [dispatch]);
+
   const totalPrice = () => (
     cartItems.reduce((accum, cartItem) => {
       return accum + cartItem.price
     }, 0)
   )
 
-  const handleCheckout = (event) => {
-    event.preventDefault();
-    onCheckout();
+  const handleCheckout = async (event) => {
+    event.preventDefault()
+    try {
+      await axios.post('api/checkout')
+
+      dispatch(cartCheckedOut())
+    } catch(err) {
+      console.error(err)
+    }
   }
 
   return (
