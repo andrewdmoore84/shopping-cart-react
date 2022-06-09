@@ -5,12 +5,12 @@ import Button from './Button';
 import DeleteButton from "./DeleteButton";
 import EditProductForm from "./EditProductForm";
 
-const EditableProduct = ({ productInfo, id, handleUpdateProduct, handleDeleteProduct}) => {
+const EditableProduct = ({ productInfo, id, handleUpdateProduct, handleDeleteProduct, handleAddToCart}) => {
   const [ isEditing, setIsEditing ] = useState(false);
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
   };
-
+  
   return (
     <div className="product">
       <div className="product-details">
@@ -20,7 +20,7 @@ const EditableProduct = ({ productInfo, id, handleUpdateProduct, handleDeletePro
         <EditProductForm {...productInfo} handleHideForm={handleEditToggle} id={id} handleUpdateProduct={handleUpdateProduct}/> :
         (
           <div className="actions product-actions">
-            <Button className="add-to-cart" name="Add To Cart" />
+            <Button isDisabled = {productInfo.quantity === 0} className={`add-to-cart ${productInfo.quantity === 0 ? "disabled" : ""}`} name="Add To Cart" handleClick={() => handleAddToCart({productId: id})}/>
             <Button className="edit" name="Edit" handleClick={handleEditToggle}/>
           </div>
         )

@@ -13,10 +13,8 @@ const App = () => {
 
   const addProduct = async (newProduct) => {
     const response = await ProductService.create(newProduct)
-    console.log('response', response)
 
     const newProducts = products.concat(response)
-    console.log('newProducts', newProducts)
     setProducts(newProducts)
   }
 
@@ -34,10 +32,40 @@ const App = () => {
   }
 
   const deleteProduct = async (id) => {
-    const response = await ProductService.deleteProduct(id)
+    await ProductService.deleteProduct(id)
     const updatedProducts = products.filter(product => product._id !== id)
 
     setProducts(updatedProducts)
+  }
+
+  const addToCart = async (id) => {
+    const response = await CartService.add(id)
+
+    if (response.item) {
+      const newProducts = products.map(product => {
+        if (product._id === response.item.productId) {
+          product.quantity--
+          return product
+        } else {
+          return product
+        }
+       })
+       setProducts(newProducts)
+      if (cart.some(item => item.productId === id.productId)) {
+        const newItems = cart.map(item => {
+          if (item.productId === id.productId) {
+            item.quantity++
+            return item
+          } else {
+            return item
+          }  
+        })
+        setCart(newItems)
+        
+      } else {
+        setCart(cart.concat(response.item))
+      }
+    }
   }
 
   const checkoutCart = async () => {
@@ -70,7 +98,8 @@ const App = () => {
       <Header cartItems={cart} handleCheckout={checkoutCart} />
 
       <main>
-        <Products items={products} handleUpdateProduct={updateProduct} handleDeleteProduct={deleteProduct}/>
+        <Products items={products} handleUpdateProduct={updateProduct} 
+                  handleDeleteProduct={deleteProduct} handleAddToCart={addToCart}/>
         <AddProductSection handleAddProduct={addProduct} />
       </main>
 
