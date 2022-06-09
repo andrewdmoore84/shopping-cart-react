@@ -40,6 +40,12 @@ const App = () => {
     setProducts(updatedProducts)
   }
 
+  const checkoutCart = async () => {
+    await CartService.checkout()
+
+    setCart([])
+  }
+
   useEffect(() => {
     const getProducts = async () => {
       const response = await ProductService.getAll();
@@ -51,7 +57,7 @@ const App = () => {
 
   useEffect(() => {
     const getCart = async () => {
-      const response = await CartService.getCart();
+      const response = await CartService.getItems();
 
       setCart(response);
     }
@@ -61,7 +67,7 @@ const App = () => {
 
   return (
     <div id="app">
-      <Header cartItems={cart}/>
+      <Header cartItems={cart} handleCheckout={checkoutCart} />
 
       <main>
         <Products items={products} handleUpdateProduct={updateProduct} handleDeleteProduct={deleteProduct}/>

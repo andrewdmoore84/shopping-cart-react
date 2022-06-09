@@ -1,37 +1,17 @@
 import axios from "axios"
 
-const getCart = async () => {
+const getItems = async () => {
   const cartURL = '/api/cart'
   const response = await axios.get(cartURL);
 
   return response.data
 }
 
-// const create = async (newProduct) => {
-//   try {
-//     const response = await axios.post(`${baseURL}`, newProduct)
-//     return response.data
-//   } catch (error) {
-//     console.log('error', error)
-//   }
-// }
+const checkout = async () => {
+  const checkoutURL = '/api/checkout'
+  await axios.post(checkoutURL)
 
-// const update = async (updatedProduct, id) => {
-//   try {
-//     const response = await axios.put(`${baseURL}/${id}`, updatedProduct)
-//     return response.data
-//   } catch (error){
-//     console.log('error', error)
-//   }
-// }
+  return
+}
 
-// const deleteProduct = async (id) => {
-//   try {
-//     const response = await axios.delete(`${baseURL}/${id}`)
-//     return response.data
-//   } catch (error){
-//     console.log('error', error)
-//   }
-// }
-
-export default { getCart };
+export default { checkout, getItems };
