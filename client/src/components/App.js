@@ -7,10 +7,12 @@ import Products from "./Products"
 import AddProductSection from "./AddProductSection"
 import { useDispatch, useSelector } from "react-redux";
 import { productsReceived } from "../actions/productsActions";
+import { cartReceived } from "../actions/cartActions"
 
 const App = () => {
   const dispatch = useDispatch()
-  const [cart, setCart] = useState([]);
+  // const [cart, setCart] = useState([]);
+  const cart = useSelector(state => state.cart)
   const products = useSelector(state => state.products)
 
   // const addToCart = async (id) => {
@@ -43,11 +45,11 @@ const App = () => {
   //   }
   // }
 
-  const checkoutCart = async () => {
-    await CartService.checkout()
+  // const checkoutCart = async () => {
+  //   await CartService.checkout()
 
-    setCart([])
-  }
+  //   setCart([])
+  // }
 
   useEffect(() => {
     const getProducts = async () => {
@@ -62,16 +64,16 @@ const App = () => {
     const getCart = async () => {
       const response = await CartService.getItems();
 
-      setCart(response);
+      dispatch(cartReceived(response));
     }
 
     getCart();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div id="app">
-      <Header cartItems={cart} handleCheckout={checkoutCart} />
-
+      <Header cartItems={cart} />
+      {/* handleCheckout={checkoutCart} */}
       <main>
         <Products items={products} />
         <AddProductSection />
