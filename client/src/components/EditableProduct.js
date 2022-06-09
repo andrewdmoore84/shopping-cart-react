@@ -4,12 +4,20 @@ import Product from "./Product";
 import Button from './Button';
 import DeleteButton from "./DeleteButton";
 import EditProductForm from "./EditProductForm";
-
-const EditableProduct = ({ productInfo, id, handleDeleteProduct, handleAddToCart}) => {
+import { useDispatch } from 'react-redux'
+import { productDeleted } from '../actions/productsActions';
+import ProductService from '../service/ProductService';
+const EditableProduct = ({ productInfo, id, handleAddToCart}) => {
+  const dispatch = useDispatch()
   const [ isEditing, setIsEditing ] = useState(false);
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
   };
+
+  const handleDeleteProduct = async () => {
+    await ProductService.deleteProduct(id)
+    dispatch(productDeleted(id))
+  }
   
   return (
     <div className="product">

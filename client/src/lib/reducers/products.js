@@ -16,6 +16,10 @@ const products = (state = [], action) => {
     default: {
       return state;
     }
+    case "PRODUCT_DELETED": {
+      const updatedProducts = state.filter(product => product._id !== action.payload)
+      return updatedProducts
+    }
   }
 };
 
