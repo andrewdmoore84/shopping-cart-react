@@ -6,8 +6,12 @@ import DeleteButton from "./DeleteButton";
 import EditProductForm from "./EditProductForm";
 import { useDispatch } from 'react-redux'
 import { productDeleted } from '../actions/productsActions';
+import { cartItemAdded } from '../actions/cartActions'
 import ProductService from '../service/ProductService';
-const EditableProduct = ({ productInfo, id, handleAddToCart}) => {
+import CartService from '../service/CartService'
+
+
+const EditableProduct = ({ productInfo, id }) => {
   const dispatch = useDispatch()
   const [ isEditing, setIsEditing ] = useState(false);
   const handleEditToggle = () => {
@@ -18,7 +22,12 @@ const EditableProduct = ({ productInfo, id, handleAddToCart}) => {
     await ProductService.deleteProduct(id)
     dispatch(productDeleted(id))
   }
-  
+
+  const handleAddToCart = async (idInfo) => {
+    await CartService.add(idInfo)
+    dispatch(cartItemAdded(productInfo))
+  }
+
   return (
     <div className="product">
       <div className="product-details">
