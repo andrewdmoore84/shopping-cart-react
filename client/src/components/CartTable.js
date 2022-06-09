@@ -1,7 +1,14 @@
+import CartItem from './CartItem'
+
 const CartTable = ({ cartItems }) => {
+  const cartTotal = () => {
+    const total = cartItems.reduce((total, cartItem) => total + (cartItem.price * cartItem.quantity), 0)
+
+    return total.toFixed(2)
+  }
+
   return (
-    <div class="cart">
-      <h2>Your Cart</h2>
+    <>
       <table class="cart-items">
         <tr>
           <th>Item</th>
@@ -9,18 +16,18 @@ const CartTable = ({ cartItems }) => {
           <th>Price</th>
         </tr>
 
-        <tr>
-          <td>Apple 10.5-Inch iPad Pro</td>
-          <td>1</td>
-          <td>$649.99</td>
-        </tr>
+      {
+        cartItems.map(cartItem =>
+          <CartItem item={cartItem} />
+        )
+      }
 
         <tr>
-          <td colspan="3" class="total">Total: $729.98</td>
+          <td colspan="3" class="total">Total: ${cartTotal()}</td>
         </tr>
       </table>
       <a class="button checkout">Checkout</a>
-    </div>
+    </>
   )
 }
 

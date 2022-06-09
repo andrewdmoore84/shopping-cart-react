@@ -5,10 +5,8 @@ const Header = ({ cartItems }) => (
   <>
     <header>
       <h1>The Shop!</h1>
+      <ShoppingCart cartItems={cartItems} />
     </header>
-
-    {/* pass in state */}
-    <ShoppingCart cartItems={cartItems}/>
   </>
 )
 

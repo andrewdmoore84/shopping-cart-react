@@ -1,24 +1,23 @@
-const ShoppingCart = ({ cartItems }) => (
-  <div class="cart">
-    <h2>Your cart</h2>
+import CartTable from './CartTable'
 
-    {
-      cartItems.length === 0 ?
-        <p>Your cart is empty</p> :
-        <CartTable cartItems={cartItems}/>
-    }
-    <p>
-      Total: $
+const ShoppingCart = ({ cartItems }) => {
+
+  return (
+    <div class="cart">
+      <h2>Your Cart</h2>
       {
         cartItems.length === 0 ?
-          "0" :
-          "Reduce items to get total price"
+          (
+            <>
+              <p>Your cart is empty</p>
+              <p>Total: $0</p>
+            </>
+          )
+          :
+          <CartTable cartItems={cartItems} />
       }
-    </p>
-    {
-
-    }
-  </div>
-)
+    </div>
+  )
+}
 
 export default ShoppingCart

@@ -1,6 +1,7 @@
 import React from "react"
 import { useEffect, useState } from "react"
 import ProductService from "../service/ProductService";
+import CartService from "../service/CartService"
 import Header from "./Header"
 import Products from "./Products"
 import AddProductSection from "./AddProductSection"
@@ -46,6 +47,16 @@ const App = () => {
     }
 
     getProducts();
+  }, []);
+
+  useEffect(() => {
+    const getCart = async () => {
+      const response = await CartService.getCart();
+
+      setCart(response);
+    }
+
+    getCart();
   }, []);
 
   return (
