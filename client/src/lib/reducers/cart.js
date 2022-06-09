@@ -3,6 +3,9 @@ const cart = (state = [], action) => {
     case 'CART_RECEIVED': {
       return action.payload
     }
+    case 'CART_CHECKED_OUT': {
+      return []
+    }
     default: {
       return state
     }

@@ -1,6 +1,6 @@
 import CartTable from './CartTable'
 
-const ShoppingCart = ({ cartItems, handleCheckout }) => {
+const ShoppingCart = ({ cartItems }) => {
 
   return (
     <div className="cart">
@@ -14,7 +14,7 @@ const ShoppingCart = ({ cartItems, handleCheckout }) => {
             </>
           )
           :
-          <CartTable cartItems={cartItems} handleCheckout={handleCheckout} />
+          <CartTable cartItems={cartItems} />
       }
     </div>
   )

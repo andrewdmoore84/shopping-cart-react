@@ -1,6 +1,11 @@
 import CartItem from './CartItem'
+import CartService from '../service/CartService'
+import { useDispatch } from 'react-redux'
+import { cartCheckedOut } from '../actions/cartActions'
 
 const CartTable = ({ cartItems, handleCheckout }) => {
+  const dispatch = useDispatch()
+
   const cartTotal = () => {
     const total = cartItems.reduce((total, cartItem) => total + (cartItem.price * cartItem.quantity), 0)
 
@@ -9,6 +14,12 @@ const CartTable = ({ cartItems, handleCheckout }) => {
 
   const onCheckoutClick = () => {
     handleCheckout()
+  }
+
+  const checkoutCart = async () => {
+    await CartService.checkout()
+
+    dispatch(cartCheckedOut())
   }
 
   return (
@@ -35,7 +46,7 @@ const CartTable = ({ cartItems, handleCheckout }) => {
 
         </tbody>
       </table>
-      <a className="button checkout" onClick={onCheckoutClick}>Checkout</a>
+      <a className="button checkout" onClick={checkoutCart}>Checkout</a>
     </>
   )
 }

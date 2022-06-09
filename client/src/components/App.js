@@ -11,7 +11,6 @@ import { cartReceived } from "../actions/cartActions"
 
 const App = () => {
   const dispatch = useDispatch()
-  // const [cart, setCart] = useState([]);
   const cart = useSelector(state => state.cart)
   const products = useSelector(state => state.products)
 
@@ -45,12 +44,6 @@ const App = () => {
   //   }
   // }
 
-  // const checkoutCart = async () => {
-  //   await CartService.checkout()
-
-  //   setCart([])
-  // }
-
   useEffect(() => {
     const getProducts = async () => {
       const products = await ProductService.getAll();
@@ -73,7 +66,6 @@ const App = () => {
   return (
     <div id="app">
       <Header cartItems={cart} />
-      {/* handleCheckout={checkoutCart} */}
       <main>
         <Products items={products} />
         <AddProductSection />
