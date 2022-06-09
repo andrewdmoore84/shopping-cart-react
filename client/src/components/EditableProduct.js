@@ -12,14 +12,14 @@ const EditableProduct = ({ productInfo, id, handleUpdateProduct, handleDeletePro
   };
 
   return (
-    <div class="product">
-      <div class="product-details">
+    <div className="product">
+      <div className="product-details">
         <Product {...productInfo} />
       </div>
       { isEditing ?
         <EditProductForm {...productInfo} handleHideForm={handleEditToggle} id={id} handleUpdateProduct={handleUpdateProduct}/> :
         (
-          <div class="actions product-actions">
+          <div className="actions product-actions">
             <Button className="add-to-cart" name="Add To Cart" />
             <Button className="edit" name="Edit" handleClick={handleEditToggle}/>
           </div>

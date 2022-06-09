@@ -1,32 +1,41 @@
 import CartItem from './CartItem'
 
-const CartTable = ({ cartItems }) => {
+const CartTable = ({ cartItems, handleCheckout }) => {
   const cartTotal = () => {
     const total = cartItems.reduce((total, cartItem) => total + (cartItem.price * cartItem.quantity), 0)
 
     return total.toFixed(2)
   }
 
+  const onCheckoutClick = () => {
+    handleCheckout()
+  }
+
   return (
     <>
-      <table class="cart-items">
-        <tr>
-          <th>Item</th>
-          <th>Quantity</th>
-          <th>Price</th>
-        </tr>
+      <table className="cart-items">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
 
-      {
-        cartItems.map(cartItem =>
-          <CartItem item={cartItem} />
-        )
-      }
+        <tbody>
+          {
+            cartItems.map(cartItem =>
+              <CartItem item={cartItem} key={cartItem._id} />
+            )
+          }
 
-        <tr>
-          <td colspan="3" class="total">Total: ${cartTotal()}</td>
-        </tr>
+          <tr>
+            <td colSpan="3" className="total">Total: ${cartTotal()}</td>
+          </tr>
+
+        </tbody>
       </table>
-      <a class="button checkout">Checkout</a>
+      <a className="button checkout" onClick={onCheckoutClick}>Checkout</a>
     </>
   )
 }

@@ -3,7 +3,7 @@ import React from 'react'
 
 const Products = ({ items, handleUpdateProduct, handleDeleteProduct}) => {
   return (
-    <div class="product-listing">
+    <div className="product-listing">
       <h2>Products</h2>
       <ul>
         {items.map(item =>
