@@ -1,12 +1,11 @@
 import React from "react"
 import { useEffect } from "react"
-import ProductService from "../service/ProductService";
 import CartService from "../service/CartService"
 import Header from "./Header"
 import Products from "./Products"
 import AddProductSection from "./AddProductSection"
 import { useDispatch, useSelector } from "react-redux";
-import { productsReceived } from "../actions/productsActions";
+import { fetchProducts } from "../features/products";
 import { cartReceived } from "../actions/cartActions"
 
 const App = () => {
@@ -15,12 +14,8 @@ const App = () => {
   const products = useSelector(state => state.products)
 
   useEffect(() => {
-    const getProducts = async () => {
-      const products = await ProductService.getAll();
-      dispatch(productsReceived(products));
-    }
-
-    getProducts();
+    dispatch(fetchProducts())
+    console.log("app", products)
   }, [dispatch]);
 
   useEffect(() => {
