@@ -3,7 +3,6 @@ import ProductService from '../service/ProductService';
 
 const initialState = [];
 
-//some async functions
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
@@ -13,9 +12,14 @@ export const fetchProducts = createAsyncThunk(
   }
 )
 
-// export const productsReceived = (products) => {
-//   return { type: "PRODUCTS_RECEIVED", payload: products };
-// };
+export const addProduct = createAsyncThunk(
+  "products/addProduct",
+  async (newProductInfo) => {
+    const newProduct = await ProductService.create(newProductInfo)
+
+    return newProduct
+  }
+)
 
 // export const productUpdated = (updatedProduct) => {
 //   return { type: "PRODUCT_UPDATED", payload: updatedProduct };
@@ -25,11 +29,6 @@ export const fetchProducts = createAsyncThunk(
 //   return { type: "PRODUCT_DELETED", payload: id };
 // }
 
-// export const productAdded = (newProduct) => {
-//   return { type: "PRODUCT_ADDED", payload: newProduct };
-// }
-
-
 const productsSlice = createSlice({
   name: "products",
   initialState,
@@ -37,7 +36,10 @@ const productsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.fulfilled, (_, action) => {
       return action.payload;
-    })
+    });
+    builder.addCase(addProduct.fulfilled, (state, action) => {
+      state.push(action.payload)
+    });
   }
 });
 

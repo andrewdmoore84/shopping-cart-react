@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Button from './Button'
 import ProductService from '../service/ProductService'
 import { useDispatch } from 'react-redux'
-import { productAdded } from '../actions/productsActions'
+import { addProduct } from '../features/products'
 
 const AddProductForm = ({ toggleIsFormVisible }) => {
   const dispatch = useDispatch()
@@ -16,9 +16,7 @@ const AddProductForm = ({ toggleIsFormVisible }) => {
   }
 
   const handleAddClick = async () => {
-    const newProduct = await ProductService.create({ title: productTitle, price: productPrice, quantity: productQuantity });
-
-    dispatch(productAdded(newProduct))
+    dispatch(addProduct({ title: productTitle, price: productPrice, quantity: productQuantity }))
     toggleIsFormVisible();
   };
 
