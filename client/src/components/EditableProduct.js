@@ -5,9 +5,8 @@ import Button from './Button';
 import DeleteButton from "./DeleteButton";
 import EditProductForm from "./EditProductForm";
 import { useDispatch } from 'react-redux'
-import { productDeleted } from '../actions/productsActions';
+import { deleteProduct } from '../features/products'
 import { cartItemAdded } from '../actions/cartActions'
-import ProductService from '../service/ProductService';
 import CartService from '../service/CartService'
 
 
@@ -19,8 +18,7 @@ const EditableProduct = ({ productInfo, id }) => {
   };
 
   const handleDeleteProduct = async () => {
-    await ProductService.deleteProduct(id)
-    dispatch(productDeleted(id))
+    dispatch(deleteProduct(id))
   }
 
   const handleAddToCart = async (idInfo) => {

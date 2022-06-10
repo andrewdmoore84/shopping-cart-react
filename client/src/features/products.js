@@ -21,13 +21,18 @@ export const addProduct = createAsyncThunk(
   }
 )
 
+export const deleteProduct = createAsyncThunk(
+  "products/deleteProduct",
+  async (id) => {
+    await ProductService.deleteProduct(id)
+
+    return id
+  }
+)
+
 // export const productUpdated = (updatedProduct) => {
 //   return { type: "PRODUCT_UPDATED", payload: updatedProduct };
 // };
-
-// export const productDeleted = (id) => {
-//   return { type: "PRODUCT_DELETED", payload: id };
-// }
 
 const productsSlice = createSlice({
   name: "products",
@@ -39,6 +44,10 @@ const productsSlice = createSlice({
     });
     builder.addCase(addProduct.fulfilled, (state, action) => {
       state.push(action.payload)
+    });
+    builder.addCase(deleteProduct.fulfilled, (state, action) => {
+      const deleteIndex = state.findIndex(product => product._id === action.payload)
+      state.splice(deleteIndex, 1)
     });
   }
 });
