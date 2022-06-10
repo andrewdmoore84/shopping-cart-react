@@ -20,6 +20,15 @@ const products = (state = [], action) => {
     })
     return updatedProducts;
     }
+    case "CART_ITEM_ADDED": {
+      const updatedProducts = state.map(product => {
+        if (product._id === action.payload.productId) {
+          product.quantity--;
+        }
+        return product;
+      })
+      return updatedProducts;
+    }
     default: {
       return state;
     }

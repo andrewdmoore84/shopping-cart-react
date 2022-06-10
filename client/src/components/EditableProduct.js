@@ -24,8 +24,10 @@ const EditableProduct = ({ productInfo, id }) => {
   }
 
   const handleAddToCart = async (idInfo) => {
-    await CartService.add(idInfo)
-    dispatch(cartItemAdded(productInfo))
+    const response = await CartService.add(idInfo)
+    if (response.item) {
+      dispatch(cartItemAdded(response.item))
+    }
   }
 
   return (

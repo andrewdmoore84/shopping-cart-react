@@ -1,5 +1,5 @@
 import React from "react"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import ProductService from "../service/ProductService";
 import CartService from "../service/CartService"
 import Header from "./Header"
@@ -13,36 +13,6 @@ const App = () => {
   const dispatch = useDispatch()
   const cart = useSelector(state => state.cart)
   const products = useSelector(state => state.products)
-
-  // const addToCart = async (id) => {
-  //   const response = await CartService.add(id)
-
-  //   if (response.item) {
-  //     const newProducts = products.map(product => {
-  //       if (product._id === response.item.productId) {
-  //         product.quantity--
-  //         return product
-  //       } else {
-  //         return product
-  //       }
-  //      })
-  //      setProducts(newProducts)
-  //     if (cart.some(item => item.productId === id.productId)) {
-  //       const newItems = cart.map(item => {
-  //         if (item.productId === id.productId) {
-  //           item.quantity++
-  //           return item
-  //         } else {
-  //           return item
-  //         }
-  //       })
-  //       setCart(newItems)
-
-  //     } else {
-  //       setCart(cart.concat(response.item))
-  //     }
-  //   }
-  // }
 
   useEffect(() => {
     const getProducts = async () => {

@@ -8,7 +8,7 @@ const cart = (state = [], action) => {
     }
     case 'CART_ITEM_ADDED': {
       if (state.some(item => item.productId === action.payload.productId)) {
-        return cart.map(item => {
+        return state.map(item => {
           if (item.productId === action.payload.productId) {
             item.quantity++
             return item
