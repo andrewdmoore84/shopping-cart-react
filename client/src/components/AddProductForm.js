@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { productAdded } from '../actions/productActions'
-import axios from 'axios'
+import { createProduct } from '../features/products/products'
 import { useDispatch } from 'react-redux'
 
 const AddProductForm = () => {
@@ -24,13 +23,11 @@ const AddProductForm = () => {
 
   const handleAddProduct = async (event) => {
     event.preventDefault()
-    try {
-      const { data } = await axios.post('/api/products', { title, price, quantity })
-      dispatch(productAdded(data))
-      resetProductForm()
-    } catch(err) {
-      console.error(err)
+    dispatch(createProduct({
+      newProductInput: { title, price, quantity },
+      callback: resetProductForm,
     }
+    ))
   }
 
   return (

@@ -1,7 +1,6 @@
-import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { productDeleted } from '../actions/productActions'
-import { cartItemAdded } from '../actions/cartActions'
+import { deleteProduct } from '../features/products/products'
+import { addItemToCart } from '../features/cartItems/cartItems'
 
 const ProductDetail = ({ product, onEditFormClick }) => {
   const dispatch = useDispatch()
@@ -13,23 +12,12 @@ const ProductDetail = ({ product, onEditFormClick }) => {
 
   const handleAddToCart = async (event) => {
     event.preventDefault()
-    try {
-      const { data } = await axios.post('/api/add-to-cart', { productId: product._id, ...product })
-
-      dispatch(cartItemAdded(data))
-    } catch(err) {
-      console.error(err)
-    }
+    dispatch(addItemToCart({ productId: product._id, ...product }))
   }
 
   const handleDeleteProduct = async (event) => {
     event.preventDefault()
-    try {
-      await axios.delete(`/api/products/${product._id}`)
-      dispatch(productDeleted(product._id))
-    } catch(err) {
-      console.error(err)
-    }
+    dispatch(deleteProduct(product._id))
   }
 
   return (
