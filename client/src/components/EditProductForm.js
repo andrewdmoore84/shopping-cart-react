@@ -1,8 +1,7 @@
 import Button from "./Button"
 import {useState} from 'react'
 import {useDispatch} from 'react-redux'
-import ProductService from "../service/ProductService"
-import { productUpdated } from "../actions/productsActions"
+import { updateProduct } from "../features/products"
 
 const EditProductForm = ({ title, price, quantity, handleHideForm, handleUpdateProduct, id }) => {
   const dispatch = useDispatch()
@@ -15,8 +14,7 @@ const EditProductForm = ({ title, price, quantity, handleHideForm, handleUpdateP
   }
 
   const handleUpdateClick = async () => {
-    const updatedProduct = await ProductService.update({title: productTitle, price: productPrice, quantity: productQuantity}, id);
-    dispatch(productUpdated(updatedProduct))
+    dispatch(updateProduct({ updatedProductInfo: {title: productTitle, price: productPrice, quantity: productQuantity}, id, }))
     handleHideForm()
   };
 

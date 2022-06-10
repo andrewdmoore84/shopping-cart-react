@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
 import Button from './Button'
-import ProductService from '../service/ProductService'
 import { useDispatch } from 'react-redux'
 import { addProduct } from '../features/products'
 

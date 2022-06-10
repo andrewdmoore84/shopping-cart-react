@@ -30,9 +30,14 @@ export const deleteProduct = createAsyncThunk(
   }
 )
 
-// export const productUpdated = (updatedProduct) => {
-//   return { type: "PRODUCT_UPDATED", payload: updatedProduct };
-// };
+export const updateProduct = createAsyncThunk(
+  "products/updateProduct",
+  async ({updatedProductInfo, id}) => {
+    const updatedProduct = await ProductService.update(updatedProductInfo, id)
+
+    return updatedProduct
+  }
+)
 
 const productsSlice = createSlice({
   name: "products",
@@ -42,12 +47,20 @@ const productsSlice = createSlice({
     builder.addCase(fetchProducts.fulfilled, (_, action) => {
       return action.payload;
     });
+
     builder.addCase(addProduct.fulfilled, (state, action) => {
       state.push(action.payload)
     });
+
     builder.addCase(deleteProduct.fulfilled, (state, action) => {
       const deleteIndex = state.findIndex(product => product._id === action.payload)
       state.splice(deleteIndex, 1)
+    });
+
+    builder.addCase(updateProduct.fulfilled, (state, action) => {
+      console.log('in productsSlice/ updateProduct, action is ', action)
+      const updateIndex = state.findIndex(product => product._id === action.payload._id)
+      state.splice(updateIndex, 1, action.payload)
     });
   }
 });
