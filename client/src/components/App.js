@@ -1,12 +1,11 @@
 import React from "react"
 import { useEffect } from "react"
-import CartService from "../service/CartService"
 import Header from "./Header"
 import Products from "./Products"
 import AddProductSection from "./AddProductSection"
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../features/products";
-import { cartReceived } from "../actions/cartActions"
+import { fetchCart } from "../features/cart"
 
 const App = () => {
   const dispatch = useDispatch()
@@ -15,17 +14,10 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fetchProducts())
-    console.log("app", products)
   }, [dispatch]);
 
   useEffect(() => {
-    const getCart = async () => {
-      const response = await CartService.getItems();
-
-      dispatch(cartReceived(response));
-    }
-
-    getCart();
+    dispatch(fetchCart());
   }, [dispatch]);
 
   return (

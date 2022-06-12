@@ -58,7 +58,6 @@ const productsSlice = createSlice({
     });
 
     builder.addCase(updateProduct.fulfilled, (state, action) => {
-      console.log('in productsSlice/ updateProduct, action is ', action)
       const updateIndex = state.findIndex(product => product._id === action.payload._id)
       state.splice(updateIndex, 1, action.payload)
     });
