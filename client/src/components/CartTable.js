@@ -2,6 +2,7 @@ import CartItem from './CartItem'
 import { useDispatch } from 'react-redux'
 import { checkoutCart } from '../features/cart'
 
+
 const CartTable = ({ cartItems }) => {
   const dispatch = useDispatch()
 

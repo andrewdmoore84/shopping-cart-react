@@ -18,11 +18,18 @@ export const checkoutCart = createAsyncThunk(
     return []
   }
 )
-//asyn functions for below
 
-// export const cartItemAdded = (addedItem) => {
-//   return { type: 'CART_ITEM_ADDED', payload: addedItem }
-// }
+export const addItemToCart = createAsyncThunk(
+  "cart/addItemToCart",
+  async (id) => {
+    const response = await CartService.add(id);
+    if (response.item) {
+      return response.item
+    } else {
+      return null
+    }
+  }
+)
 
 const cartSlice = createSlice({ 
   name: "cart",
@@ -36,6 +43,14 @@ const cartSlice = createSlice({
     builder.addCase(checkoutCart.fulfilled, (_, action) => {
       return action.payload;
     });
+
+    builder.addCase(addItemToCart.fulfilled, (state, action) => {
+      if (action.payload) {
+        return state.concat(action.payload)
+      } else {
+        return state
+      }
+    })
   }
 })
 

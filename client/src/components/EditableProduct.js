@@ -1,14 +1,11 @@
 import { useState } from 'react';
-
 import Product from "./Product";
 import Button from './Button';
 import DeleteButton from "./DeleteButton";
 import EditProductForm from "./EditProductForm";
 import { useDispatch } from 'react-redux'
 import { deleteProduct } from '../features/products'
-import { cartItemAdded } from '../actions/cartActions'
-import CartService from '../service/CartService'
-
+import { addItemToCart } from '../features/cart';
 
 const EditableProduct = ({ productInfo, id }) => {
   const dispatch = useDispatch()
@@ -21,11 +18,8 @@ const EditableProduct = ({ productInfo, id }) => {
     dispatch(deleteProduct(id))
   }
 
-  const handleAddToCart = async (idInfo) => {
-    const response = await CartService.add(idInfo)
-    if (response.item) {
-      dispatch(cartItemAdded(response.item))
-    }
+  const handleAddToCart = (idInfo) => {
+    dispatch(addItemToCart(idInfo))
   }
 
   return (
