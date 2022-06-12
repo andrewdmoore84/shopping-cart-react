@@ -10,14 +10,15 @@ export const fetchCart = createAsyncThunk(
     return cart
   }
 )
-//asyn functions for below
-// export const cartReceived = (cartItems) => {
-//   return { type: 'CART_RECEIVED', payload: cartItems }
-// }
 
-// export const cartCheckedOut = () => {
-//   return { type: 'CART_CHECKED_OUT' }
-// }
+export const checkoutCart = createAsyncThunk(
+  "cart/checkoutCart",
+  async () => {
+    await CartService.checkout();
+    return []
+  }
+)
+//asyn functions for below
 
 // export const cartItemAdded = (addedItem) => {
 //   return { type: 'CART_ITEM_ADDED', payload: addedItem }
@@ -30,6 +31,10 @@ const cartSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchCart.fulfilled, (_, action) => {
       return action.payload
+    });
+    
+    builder.addCase(checkoutCart.fulfilled, (_, action) => {
+      return action.payload;
     });
   }
 })

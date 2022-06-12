@@ -1,7 +1,6 @@
 import CartItem from './CartItem'
-import CartService from '../service/CartService'
 import { useDispatch } from 'react-redux'
-import { cartCheckedOut } from '../actions/cartActions'
+import { checkoutCart } from '../features/cart'
 
 const CartTable = ({ cartItems }) => {
   const dispatch = useDispatch()
@@ -12,10 +11,8 @@ const CartTable = ({ cartItems }) => {
     return total.toFixed(2)
   }
 
-  const checkoutCart = async () => {
-    await CartService.checkout()
-
-    dispatch(cartCheckedOut())
+  const handleCheckoutClick = () => {
+    dispatch(checkoutCart())
   }
 
   return (
@@ -42,7 +39,7 @@ const CartTable = ({ cartItems }) => {
 
         </tbody>
       </table>
-      <a className="button checkout" onClick={checkoutCart}>Checkout</a>
+      <a className="button checkout" onClick={handleCheckoutClick}>Checkout</a>
     </>
   )
 }
