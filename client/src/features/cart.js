@@ -23,11 +23,7 @@ export const addItemToCart = createAsyncThunk(
   "cart/addItemToCart",
   async (id) => {
     const response = await CartService.add(id);
-    if (response.item) {
-      return response.item
-    } else {
-      return null
-    }
+    return response.item;
   }
 )
 
@@ -46,9 +42,12 @@ const cartSlice = createSlice({
 
     builder.addCase(addItemToCart.fulfilled, (state, action) => {
       if (action.payload) {
-        return state.concat(action.payload)
-      } else {
-        return state
+        const updateIndex = state.findIndex(item => item.productId === action.payload.productId)
+        if (updateIndex !== -1) {
+          const updateItem = state[updateIndex]
+          updateItem.quantity += 1
+          state.splice(updateIndex, 1, updateItem)
+        } 
       }
     })
   }

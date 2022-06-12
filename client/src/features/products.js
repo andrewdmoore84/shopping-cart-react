@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import ProductService from '../service/ProductService';
+import { addItemToCart } from "./cart";
 
 const initialState = [];
 
@@ -7,7 +8,6 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
     const products = await ProductService.getAll();
-    console.log("thunk", products)
     return products;
   }
 )
@@ -60,6 +60,16 @@ const productsSlice = createSlice({
     builder.addCase(updateProduct.fulfilled, (state, action) => {
       const updateIndex = state.findIndex(product => product._id === action.payload._id)
       state.splice(updateIndex, 1, action.payload)
+    });
+
+    builder.addCase(addItemToCart.fulfilled, (state, action) => {
+      if (action.payload) {
+        const updateIndex = state.findIndex(product => product._id === action.payload.productId)
+        if (updateIndex !== -1) {
+          const updateProduct = state[updateIndex]
+          updateProduct.quantity -= 1
+        }
+      }
     });
   }
 });
