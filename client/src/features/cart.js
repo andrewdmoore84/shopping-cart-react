@@ -27,7 +27,7 @@ export const addItemToCart = createAsyncThunk(
   }
 )
 
-const cartSlice = createSlice({ 
+const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {},
@@ -35,7 +35,7 @@ const cartSlice = createSlice({
     builder.addCase(fetchCart.fulfilled, (_, action) => {
       return action.payload
     });
-    
+
     builder.addCase(checkoutCart.fulfilled, (_, action) => {
       return action.payload;
     });
@@ -47,7 +47,9 @@ const cartSlice = createSlice({
           const updateItem = state[updateIndex]
           updateItem.quantity += 1
           state.splice(updateIndex, 1, updateItem)
-        } 
+        } else {
+          state.push(action.payload)
+        }
       }
     })
   }
