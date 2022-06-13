@@ -80,16 +80,6 @@ const App = () => {
     fetchProducts(productDispatch)
   }, [productDispatch]);
 
-  useEffect(() => {
-    const getCart = async () => {
-      const response = await CartService.getItems();
-
-      setCart(response);
-    }
-
-    getCart();
-  }, []);
-
   return (
     <div id="app">
       <Header />

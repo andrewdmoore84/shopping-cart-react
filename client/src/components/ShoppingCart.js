@@ -1,10 +1,21 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
+import CartService from '../service/CartService'
 import CartTable from './CartTable'
 import { CartContext } from '../context/cart'
 
 
 const ShoppingCart = ({ handleCheckout }) => {
-  const { cart: cartItems, _ } = useContext(CartContext)
+  const { cart: cartItems, setCart } = useContext(CartContext)
+
+  useEffect(() => {
+    const getCart = async () => {
+      const response = await CartService.getItems();
+
+      setCart(response);
+    }
+
+    getCart();
+  }, []);
 
   return (
     <div className="cart">
