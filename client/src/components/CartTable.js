@@ -1,18 +1,21 @@
 import { useContext } from 'react'
 import CartItem from './CartItem'
 import { CartContext } from '../context/cart'
+import CartService from '../service/CartService'
 
-const CartTable = ({ handleCheckout }) => {
-  const { cart: cartItems, _ } = useContext(CartContext)
+const CartTable = () => {
+  const { cart: cartItems, setCart } = useContext(CartContext)
+
+  const checkoutCart = async () => {
+    await CartService.checkout()
+
+    setCart([])
+  }
 
   const cartTotal = () => {
     const total = cartItems.reduce((total, cartItem) => total + (cartItem.price * cartItem.quantity), 0)
 
     return total.toFixed(2)
-  }
-
-  const onCheckoutClick = () => {
-    handleCheckout()
   }
 
   return (
@@ -39,7 +42,7 @@ const CartTable = ({ handleCheckout }) => {
 
         </tbody>
       </table>
-      <a className="button checkout" onClick={onCheckoutClick}>Checkout</a>
+      <a className="button checkout" onClick={checkoutCart}>Checkout</a>
     </>
   )
 }

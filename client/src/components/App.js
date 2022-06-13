@@ -8,7 +8,6 @@ import AddProductSection from "./AddProductSection"
 import { fetchProducts, ProductContext } from "../context/products";
 import { CartContext } from "../context/cart"
 
-
 const App = () => {
   const { cart, setCart } = useContext(CartContext)
   const { products, dispatch: productDispatch } = useContext(ProductContext)
@@ -70,12 +69,6 @@ const App = () => {
   //   }
   // }
 
-  // const checkoutCart = async () => {
-  //   await CartService.checkout()
-
-  //   setCart([])
-  // }
-
   useEffect(() => {
     fetchProducts(productDispatch)
   }, [productDispatch]);
@@ -83,7 +76,7 @@ const App = () => {
   return (
     <div id="app">
       <Header />
-      {/* {handleCheckout = { checkoutCart } } */}
+
       <main>
         <Products items={products} />
         <AddProductSection />

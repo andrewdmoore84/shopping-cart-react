@@ -4,7 +4,7 @@ import CartTable from './CartTable'
 import { CartContext } from '../context/cart'
 
 
-const ShoppingCart = ({ handleCheckout }) => {
+const ShoppingCart = () => {
   const { cart: cartItems, setCart } = useContext(CartContext)
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const ShoppingCart = ({ handleCheckout }) => {
             </>
           )
           :
-          <CartTable  handleCheckout={handleCheckout} />
+          <CartTable />
       }
     </div>
   )
