@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { editProduct, ProductContext } from '../context/productsContext'
+import {useContext } from "react";
 
-const EditProductForm = ({ onEditFormClick, onEditProduct, product }) => {
+const EditProductForm = ({ product, onEditFormClick }) => {
+  const { dispatch } = useContext(ProductContext)
   const [title, setTitle] = useState(product.title)
   const [price, setPrice] = useState(product.price)
   const [quantity, setQuantity] = useState(product.quantity)
@@ -18,14 +21,14 @@ const EditProductForm = ({ onEditFormClick, onEditProduct, product }) => {
 
   const handleSubmitForm = (event) => {
     event.preventDefault()
-    onEditProduct({ _id: product._id, title, price, quantity })
+    editProduct({ _id: product._id, title, price, quantity }, dispatch)
   }
 
   return (
-    <div class="edit-form">
+    <div className="edit-form">
       <h3>Edit Product</h3>
       <form>
-        <div class="input-group">
+        <div className="input-group">
           <label for="product-name">Product Name</label>
           <input
             onChange={(event) => setTitle(event.target.value)}
@@ -33,7 +36,7 @@ const EditProductForm = ({ onEditFormClick, onEditProduct, product }) => {
           />
         </div>
 
-        <div class="input-group">
+        <div className="input-group">
           <label for="product-price">Price</label>
           <input
             onChange={(event) => setPrice(event.target.value)}
@@ -41,16 +44,16 @@ const EditProductForm = ({ onEditFormClick, onEditProduct, product }) => {
           />
         </div>
 
-        <div class="input-group">
+        <div className="input-group">
           <label for="product-quantity">Quantity</label>
           <input onChange={(event) => setQuantity(event.target.value)}
             type="text" id="product-quantity" value={quantity}
           />
         </div>
 
-        <div class="actions form-actions">
-          <a href='/' onClick={handleSubmitForm} class="button">Update</a>
-          <a href='/' onClick={handleCancelEditForm} class="button">Cancel</a>
+        <div className="actions form-actions">
+          <a href='/' onClick={handleSubmitForm} className="button">Update</a>
+          <a href='/' onClick={handleCancelEditForm} className="button">Cancel</a>
         </div>
       </form>
     </div>

@@ -1,13 +1,22 @@
-const Cart = ({ cartItems, onCheckout }) => {
+import { useEffect, useContext } from "react";
+import { CartItemContext, getCartItems, checkout } from "../context/cartItemsContext";
+
+const Cart = () => {
+  const { cartItems, dispatch } = useContext(CartItemContext)
+
   const totalPrice = () => (
     cartItems.reduce((accum, cartItem) => {
       return accum + cartItem.price
     }, 0)
   )
 
+  useEffect(() => {
+    getCartItems(dispatch)
+  }, [dispatch]);
+
   const handleCheckout = (event) => {
     event.preventDefault();
-    onCheckout();
+    checkout(dispatch)
   }
 
   return (

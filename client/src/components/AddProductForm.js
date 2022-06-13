@@ -1,6 +1,9 @@
 import { useState } from 'react'
+import { addProduct, ProductContext } from '../context/productsContext'
+import {useContext } from "react";
 
-const AddProductForm = ({ onAddProduct }) => {
+const AddProductForm = () => {
+  const { dispatch } = useContext(ProductContext)
   const [showAddProduct, setShowAddProduct] = useState(false)
   const addFormClass = showAddProduct ? 'add-form visible' : 'add-form'
   const [title, setTitle] = useState('')
@@ -20,19 +23,19 @@ const AddProductForm = ({ onAddProduct }) => {
 
   const handleAddProduct = (event) => {
     event.preventDefault()
-    onAddProduct({ title, price, quantity }, resetProductForm)
+    addProduct({ title, price, quantity }, resetProductForm, dispatch)
   }
 
   return (
-    <div class={addFormClass}>
+    <div className={addFormClass}>
       <p>
-        <a href='/' onClick={toggleAddFormButton} class="button add-product-button">
+        <a href='/' onClick={toggleAddFormButton} className="button add-product-button">
           Add A Product
         </a>
       </p>
       <h3>Add Product</h3>
       <form>
-        <div class="input-group">
+        <div className="input-group">
           <label htmlFor="product-name">Product Name</label>
           <input
             onChange={(event) => setTitle(event.target.value)}
@@ -42,7 +45,7 @@ const AddProductForm = ({ onAddProduct }) => {
           />
         </div>
 
-        <div class="input-group">
+        <div className="input-group">
           <label htmlFor="product-price">Price</label>
           <input
             onChange={(event) => setPrice(event.target.value)}
@@ -52,7 +55,7 @@ const AddProductForm = ({ onAddProduct }) => {
           />
         </div>
 
-        <div class="input-group">
+        <div className="input-group">
           <label htmlFor="product-quantity">Quantity</label>
           <input
             onChange={(event) => setQuantity(event.target.value)}
@@ -62,9 +65,9 @@ const AddProductForm = ({ onAddProduct }) => {
           />
         </div>
 
-        <div class="actions form-actions">
-          <a href='/api/products' onClick={handleAddProduct} class="button">Add</a>
-          <a href='/' onClick={toggleAddFormButton} class="button">Cancel</a>
+        <div className="actions form-actions">
+          <a href='/api/products' onClick={handleAddProduct} className="button">Add</a>
+          <a href='/' onClick={toggleAddFormButton} className="button">Cancel</a>
         </div>
       </form>
     </div>

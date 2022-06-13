@@ -1,4 +1,10 @@
-const ProductDetail = ({ product, onEditFormClick, onAddToCart, onDeleteProduct }) => {
+import { deleteProduct, ProductContext } from '../context/productsContext'
+import { addToCart, CartItemContext } from '../context/cartItemsContext'
+import {useContext } from "react";
+
+const ProductDetail = ({ product,  onEditFormClick }) => {
+  const { dispatch: productDispatch } = useContext(ProductContext)
+  const { dispatch: cartItemDispatch } = useContext(CartItemContext)
 
   const handleEditFormClick = (event) => {
     event.preventDefault()
@@ -7,25 +13,25 @@ const ProductDetail = ({ product, onEditFormClick, onAddToCart, onDeleteProduct 
 
   const handleAddToCart = (event) => {
     event.preventDefault()
-    onAddToCart({ productId: product._id, ...product })
+    addToCart({ productId: product._id, ...product }, productDispatch, cartItemDispatch)
   }
 
   const handleDeleteProduct = (event) => {
     event.preventDefault()
-    onDeleteProduct(product._id)
+    deleteProduct(product._id, productDispatch)
   }
 
   return (
-    <div class="product">
-      <div class="product-details">
+    <div className="product">
+      <div className="product-details">
         <h3>{product.title}</h3>
-        <p class="price">{product.price}</p>
-        <p class="quantity">{product.quantity} left in stock</p>
-        <div class="actions product-actions">
-          <a href='/' onClick={handleAddToCart} class="button add-to-cart">Add to Cart</a>
-          <a href='/' onClick={handleEditFormClick} class="button edit">Edit</a>
+        <p className="price">{product.price}</p>
+        <p className="quantity">{product.quantity} left in stock</p>
+        <div className="actions product-actions">
+          <a href='/' onClick={handleAddToCart} className="button add-to-cart">Add to Cart</a>
+          <a href='/' onClick={handleEditFormClick} className="button edit">Edit</a>
         </div>
-        <a href='/' onClick={handleDeleteProduct} class="delete-button"><span>X</span></a>
+        <a href='/' onClick={handleDeleteProduct} className="delete-button"><span>X</span></a>
       </div>
     </div>
   )
