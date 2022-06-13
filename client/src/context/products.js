@@ -10,14 +10,14 @@ export const fetchProducts = async (dispatch) => {
 
 export const updateProduct = async (updatedProduct, id, dispatch) => {
   const data = await ProductService.update(updatedProduct, id);
-  console.log(data)
   dispatch({ type: "PRODUCT_UPDATED", payload: data })
 }
 
+export const deleteProduct = async (id, dispatch) => {
+  await ProductService.deleteProduct(id);
+  dispatch({ type: "PRODUCT_DELETED", payload: id })
+}
 
-// export const productDeleted = (id) => {
-//   return { type: "PRODUCT_DELETED", payload: id };
-// }
 
 // export const productAdded = (newProduct) => {
 //   return { type: "PRODUCT_ADDED", payload: newProduct };
@@ -37,6 +37,10 @@ const productReducer = ( state, action ) => {
         }
       })
       return updatedProducts;
+    }
+    case "PRODUCT_DELETED": {
+      const updatedProducts = state.filter(product => product._id !== action.payload)
+      return updatedProducts
     }
     default: {
       return state

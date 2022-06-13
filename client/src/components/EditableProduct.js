@@ -5,7 +5,7 @@ import Button from './Button';
 import DeleteButton from "./DeleteButton";
 import EditProductForm from "./EditProductForm";
 
-const EditableProduct = ({ productInfo, id, handleDeleteProduct, handleAddToCart}) => {
+const EditableProduct = ({ productInfo, id, handleAddToCart}) => {
   
   const [ isEditing, setIsEditing ] = useState(false);
   const handleEditToggle = () => {
@@ -26,7 +26,7 @@ const EditableProduct = ({ productInfo, id, handleDeleteProduct, handleAddToCart
           </div>
         )
       }
-      <DeleteButton handleClick={handleDeleteProduct} id={id}/>
+      <DeleteButton id={id}/>
     </div>
   )
 };
