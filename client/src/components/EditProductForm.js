@@ -1,7 +1,9 @@
 import Button from "./Button"
-import {useState} from 'react'
+import {useState, useContext} from 'react'
+import { ProductContext, updateProduct } from "../context/products"
 
-const EditProductForm = ({ title, price, quantity, handleHideForm, handleUpdateProduct, id }) => {
+const EditProductForm = ({ title, price, quantity, handleHideForm, id }) => {
+  const { dispatch: productDispatch } = useContext(ProductContext)
   const [productTitle, setProductTitle] = useState(title)
   const [productPrice, setProductPrice] = useState(price)
   const [productQuantity, setProductQuantity] = useState(quantity)
@@ -10,8 +12,8 @@ const EditProductForm = ({ title, price, quantity, handleHideForm, handleUpdateP
     return (e) => callback(e.target.value)
   }
 
-  const handleUpdateClick = async () => {
-    await handleUpdateProduct({title: productTitle, price: productPrice, quantity: productQuantity}, id);
+  const handleUpdateClick = () => {
+    updateProduct({title: productTitle, price: productPrice, quantity: productQuantity}, id, productDispatch);
     handleHideForm()
   };
 
