@@ -1,6 +1,10 @@
+import { useContext } from 'react'
 import CartTable from './CartTable'
+import { CartContext } from '../context/cart'
 
-const ShoppingCart = ({ cartItems, handleCheckout }) => {
+
+const ShoppingCart = ({ handleCheckout }) => {
+  const { cart: cartItems, _ } = useContext(CartContext)
 
   return (
     <div className="cart">
@@ -14,7 +18,7 @@ const ShoppingCart = ({ cartItems, handleCheckout }) => {
             </>
           )
           :
-          <CartTable cartItems={cartItems} handleCheckout={handleCheckout} />
+          <CartTable  handleCheckout={handleCheckout} />
       }
     </div>
   )

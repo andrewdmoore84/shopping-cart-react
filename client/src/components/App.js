@@ -6,10 +6,11 @@ import Header from "./Header"
 import Products from "./Products"
 import AddProductSection from "./AddProductSection"
 import { fetchProducts, ProductContext } from "../context/products";
+import { CartContext } from "../context/cart"
 
 
 const App = () => {
-  const [cart, setCart] = useState([]);
+  const { cart, setCart } = useContext(CartContext)
   const { products, dispatch: productDispatch } = useContext(ProductContext)
 
   // const addProduct = async (newProduct) => {
@@ -59,10 +60,10 @@ const App = () => {
   //           return item
   //         } else {
   //           return item
-  //         }  
+  //         }
   //       })
   //       setCart(newItems)
-        
+
   //     } else {
   //       setCart(cart.concat(response.item))
   //     }
@@ -91,8 +92,8 @@ const App = () => {
 
   return (
     <div id="app">
-      {/* <Header cartItems={cart} handleCheckout={checkoutCart} /> */}
-
+      <Header />
+      {/* {handleCheckout = { checkoutCart } } */}
       <main>
         <Products items={products} />
         <AddProductSection />

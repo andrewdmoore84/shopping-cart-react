@@ -1,6 +1,10 @@
+import { useContext } from 'react'
 import CartItem from './CartItem'
+import { CartContext } from '../context/cart'
 
-const CartTable = ({ cartItems, handleCheckout }) => {
+const CartTable = ({ handleCheckout }) => {
+  const { cart: cartItems, _ } = useContext(CartContext)
+
   const cartTotal = () => {
     const total = cartItems.reduce((total, cartItem) => total + (cartItem.price * cartItem.quantity), 0)
 
