@@ -18,10 +18,10 @@ export const deleteProduct = async (id, dispatch) => {
   dispatch({ type: "PRODUCT_DELETED", payload: id })
 }
 
-
-// export const productAdded = (newProduct) => {
-//   return { type: "PRODUCT_ADDED", payload: newProduct };
-// }
+export const addProduct = async (newProduct, dispatch) => {
+  const data = await ProductService.create(newProduct)
+  dispatch({ type: "PRODUCT_ADDED", payload: data })
+}
 
 const productReducer = ( state, action ) => {
   switch (action.type) {
@@ -41,6 +41,9 @@ const productReducer = ( state, action ) => {
     case "PRODUCT_DELETED": {
       const updatedProducts = state.filter(product => product._id !== action.payload)
       return updatedProducts
+    }
+    case "PRODUCT_ADDED": {
+      return state.concat(action.payload)
     }
     default: {
       return state

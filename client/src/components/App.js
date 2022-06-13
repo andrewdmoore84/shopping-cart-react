@@ -95,7 +95,7 @@ const App = () => {
 
       <main>
         <Products items={products} />
-        {/* <AddProductSection handleAddProduct={addProduct} /> */}
+        <AddProductSection />
       </main>
 
     </div>

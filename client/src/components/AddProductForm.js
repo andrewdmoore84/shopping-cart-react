@@ -1,18 +1,19 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useContext} from 'react'
 import Button from './Button'
-
-const AddProductForm = ({ handleAddProduct, toggleIsFormVisible }) => {
+import { ProductContext, addProduct } from '../context/products'
+const AddProductForm = ({ toggleIsFormVisible }) => {
   const [productTitle, setProductTitle] = useState('')
   const [productPrice, setProductPrice] = useState('')
   const [productQuantity, setProductQuantity] = useState('')
+  const { dispatch: productDispatch } = useContext(ProductContext)
 
   const handleOnChange = (callback) => {
     return (e) => callback(e.target.value)
   }
 
-  const handleAddClick = async () => {
-    await handleAddProduct({ title: productTitle, price: productPrice, quantity: productQuantity });
+  const handleAddClick = () => {
+    addProduct({ title: productTitle, price: productPrice, quantity: productQuantity }, productDispatch);
     toggleIsFormVisible();
   };
 

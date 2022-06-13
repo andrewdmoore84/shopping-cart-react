@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Button from "./Button"
 import AddProductForm from "./AddProductForm"
 
-const AddProductSection = ({ handleAddProduct }) => {
+const AddProductSection = () => {
   const [ isFormVisible, setIsFormVisible ] = useState(false)
 
   const toggleFormClick = () => {
@@ -16,7 +16,7 @@ const AddProductSection = ({ handleAddProduct }) => {
         // <div class= "add-form visible" >
         <>
           <h3>Add Product</h3>
-          <AddProductForm handleAddProduct={handleAddProduct} toggleIsFormVisible={toggleFormClick} />
+          <AddProductForm toggleIsFormVisible={toggleFormClick} />
         </>
         // <div/>
         :
