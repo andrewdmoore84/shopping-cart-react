@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const apiRoutes = require("./routes/api");
 const uiRoutes = require("./routes/ui");
-require("dotenv").config();
+// require("dotenv").config({ path: __dirname + '/../.env' });
 
 const app = express();
 
